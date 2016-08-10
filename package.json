@@ -1,0 +1,37 @@
+{
+  "name": "cordova-plugin-qupaiyun",
+  "version": "0.0.1",
+  "description": "codrova/phonegap wrapper for qcloud sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giantss/cordova-plugin-qupaiyun.git"
+  },
+  "cordova": {
+    "id": "cordova-plugin-qupaiyun",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova",
+    "phonegap",
+    "plugin",
+    "qupaiyun",
+    "qupai",
+    "cloud"
+  ],
+  "author": "https://github.com/giantss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/giantss/cordova-plugin-qupaiyun/issues"
+  },
+  "homepage": "https://github.com/giantss/cordova-plugin-qupaiyun"
+}
