@@ -9,8 +9,8 @@
   <description>Cordova QuPaiCloud Plugin</description>
   <license>MIT</license>
   <keywords>cordova,QuPaiCloud</keywords>
-  <repo>https://github.com/giantss/cordova-plugin-QuPaiCloud</repo>
-  <issue>https://github.com/giantss/cordova-plugin-QuPaiCloud/issues</issue>
+  <repo>https://github.com/giantss/cordova-plugin-qupaicloud</repo>
+  <issue>https://github.com/giantss/cordova-plugin-qupaicloud/issues</issue>
 
   <!--require cordova version -->
   <engines>
@@ -33,47 +33,24 @@
       <access origin = "https://www.qupaicloud.com//*"/>
      </config-file>
 
-    <!--set ios URLTypes for QuPaiCloud SDK -->
-   <config-file target="*-Info.plist" parent="CFBundleURLTypes">
-      <array>
-        <dict>
-          <key>CFBundleTypeRole</key>
-          <string>Editor</string>
-          <key>CFBundleURLName</key>
-          <string>qcloud</string>
-          <key>CFBundleURLSchemes</key>
-          <array>
-            <string>tencent$QCLOUD_APP_ID</string>
-          </array>
-        </dict>
-      </array>
-    </config-file>
-  
-    <!--allow non-HTTPS traffic -->
-    <config-file platform="ios" target="*-Info.plist" parent="NSAppTransportSecurity">
-       <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-      </dict>
-    </config-file>
-    <!--scheme query whitlist-->
-    <config-file platform="ios" target="*-Info.plist" parent="LSApplicationQueriesSchemes">
-        <array>
-            <string>qcloud</string>   
-        </array>
-    </config-file>
-    <header-file src="src/ios/QCloud.h"/>
-	 <header-file src="src/ios/MBProgressHUD.h"/>
-    <source-file src="src/ios/QCloud.m"/>
-	<source-file src="src/ios/MBProgressHUD.m"/>
-    <!--required frameworks for qcloud sdk-->
-    <framework src="CoreTelephony.framework" />
-    <framework src="SystemConfiguration.framework" />
-    <framework src="libstdc++.6.dylib" />
-    <!--qcloud SDK version 1.1.4.1-->
-     <header-file src="src/ios/QcloudSDK/TXYBase.h" />
-     <header-file src="src/ios/QcloudSDK/TXYUploadManager.h" />
-     <source-file src="src/ios/QcloudSDK/libTXYUploader.a" framework="true" />
+	  <header-file src="src/ios/QuPaiCloud.h"/>
+	  <source-file src="src/ios/QuPaiCloud.m"/>
+      <!--QuPaiCloud SDK version 1.2.0.1-->
+     <header-file src="src/ios/libQuPaiCloudSDK/M13ProgressHUD.h" />
+	 <source-file src="src/ios/libQuPaiCloudSDK/M13ProgressHUD.m"/>
+	 
+     <header-file src="src/ios/libQuPaiCloudSDK/M13ProgressView.h" />
+	 <source-file src="src/ios/libQuPaiCloudSDK/M13ProgressView.m"/>
+	 
+	 <header-file src="src/ios/libQuPaiCloudSDK/M13ProgressViewRing.h" />
+	 <source-file src="src/ios/libQuPaiCloudSDK/M13ProgressViewRing.m"/>
+	 
+	 <header-file src="src/ios/libQuPaiCloudSDK/UIImage+ImageEffects.h" />
+	 <source-file src="src/ios/libQuPaiCloudSDK/UIImage+ImageEffects.m"/>
+	 
+	 <resource-file src="src/ios/libQuPaiCloudSDK/QPSDK.bundle" />
+	 <resource-file src="src/ios/libQuPaiCloudSDK/QPSDK.framework" />
+
 
   </platform>
 
@@ -81,7 +58,7 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="QuPaiCloud" >
-        <param name="android-package" value="com.giantss.pupaicloud"/>
+        <param name="android-package" value="com.giants.pupaicloud"/>
       </feature>
       <!--whitelist for QuPaiCloud SDK-->
       <access origin = "https://www.qupaicloud.com//*"/>
@@ -90,25 +67,38 @@
   <config-file target="AndroidManifest.xml" parent="/manifest">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-<uses-permission android:name="android.permission.READ_SETTINGS" />
+		<uses-permission android:name="android.permission.READ_SETTINGS" />
 
-<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+		<uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.INTERNET" />
 
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+		<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-<uses-permission android:name="android.permission.GET_TASKS" />
+		<uses-permission android:name="android.permission.GET_TASKS" />
 
     </config-file>
  
-  <source-file src="src/android/QuPaiCloud.java" target-dir="src/com.giantss.pupaicloud" />
+  <source-file src="src/android/AppConfig.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/AppGlobalSetting.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/Auth.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/Contant.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/FileUtils.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/QuPaiCloud.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/RecordResult.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/RequestCode.java" target-dir="src/com/giants/pupaicloud" />
+      <!-- android QuPaiCloud sdk version 1.2.0.1  https://www.qupaicloud.com/home/solution-standard.html -->
+  <source-file src="src/android/libs/armeabi-v7a/libgnustl_shared.so" target-dir="libs/armeabi-v7a/"/>
+  <source-file src="src/android/libs/armeabi-v7a/libqupai-media-jni.so" target-dir="libs/armeabi-v7a/"/>
+  <source-file src="src/android/libs/armeabi-v7a/libqupai-media-thirdparty.so" target-dir="libs/armeabi-v7a/"/>  
+  <source-file src="src/android/libs/Qupaisdk-release.aar" target-dir="libs/" />
+  
 
   </platform>
 </plugin>
