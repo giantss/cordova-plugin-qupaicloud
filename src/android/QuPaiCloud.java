@@ -157,7 +157,7 @@ public class QuPaiCloud extends CordovaPlugin{
         VideoSessionCreateInfo info = new VideoSessionCreateInfo.Builder()
                 .setWaterMarkPath(waterMarkPath)
                 .setWaterMarkPosition(mWaterMark)
-                .setCameraFacing(1)
+                .setCameraFacing(0)
                 .setBeautyProgress(beautySkinProgress)
                 .setBeautySkinOn(true)
                 .setMovieExportOptions(movie_options)
