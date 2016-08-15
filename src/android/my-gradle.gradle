@@ -1,0 +1,24 @@
+repositories{    
+  jcenter()
+  flatDir{
+      dirs 'libs'
+   }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:support-v13:22.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
+    compile 'com.google.dagger:dagger-compiler:2.0.1'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    //compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.google.code.findbugs:jsr305:3.0.0'
+    compile(name:'Qupaisdk-release', ext:'aar')
+}
+
+android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}

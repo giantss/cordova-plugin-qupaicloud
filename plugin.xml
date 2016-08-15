@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  id="cordova-plugin-QuPaiCloud"
+  id="cordova-plugin-qupaicloud"
   version="0.0.1">
 
   <name>QuPaiCloud</name>
@@ -58,7 +58,7 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="QuPaiCloud" >
-        <param name="android-package" value="com.giants.pupaicloud"/>
+        <param name="android-package" value="com.giants.qupaicloud.QuPaiCloud"/>
       </feature>
       <!--whitelist for QuPaiCloud SDK-->
       <access origin = "https://www.qupaicloud.com//*"/>
@@ -85,19 +85,21 @@
 
     </config-file>
  
-  <source-file src="src/android/AppConfig.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/AppGlobalSetting.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/Auth.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/Contant.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/FileUtils.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/QuPaiCloud.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/RecordResult.java" target-dir="src/com/giants/pupaicloud" />
-  <source-file src="src/android/RequestCode.java" target-dir="src/com/giants/pupaicloud" />
+  <source-file src="src/android/AppConfig.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/AppGlobalSetting.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/Auth.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/Contant.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/FileUtils.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/QuPaiCloud.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/RecordResult.java" target-dir="src/com/giants/qupaicloud" />
+  <source-file src="src/android/RequestCode.java" target-dir="src/com/giants/qupaicloud" />
       <!-- android QuPaiCloud sdk version 1.2.0.1  https://www.qupaicloud.com/home/solution-standard.html -->
   <source-file src="src/android/libs/armeabi-v7a/libgnustl_shared.so" target-dir="libs/armeabi-v7a/"/>
   <source-file src="src/android/libs/armeabi-v7a/libqupai-media-jni.so" target-dir="libs/armeabi-v7a/"/>
-  <source-file src="src/android/libs/armeabi-v7a/libqupai-media-thirdparty.so" target-dir="libs/armeabi-v7a/"/>  
-  <source-file src="src/android/libs/Qupaisdk-release.aar" target-dir="libs/" />
+  <source-file src="src/android/libs/armeabi-v7a/libqupai-media-thirdparty.so" target-dir="libs/armeabi-v7a/"/>
+  <framework src="src/android/my-gradle.gradle" custom="true" type="gradleReference" />
+  <resource-file src="src/android/libs/Qupaisdk-release.aar" target="libs/Qupaisdk-release.aar" />
+ 
   
 
   </platform>
