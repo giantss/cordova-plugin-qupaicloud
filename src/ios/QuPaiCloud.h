@@ -37,6 +37,7 @@
 @property(nonatomic, copy) NSString *domain;  //拼接获取视频和封图的必须参数
 @property(nonatomic, copy) NSString *accessToken;
 @property(nonatomic, copy) NSString *callback;
+@property(nonatomic, copy) NSString *uid;
 
 @property (nonatomic,strong) M13ProgressHUD *HUD;
 
