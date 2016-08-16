@@ -4,8 +4,9 @@
 这个一个QuPaiCloud SDK的Cordova 插件。 		
 
 ##主要功能
-- 拍视频上传趣拍云一套解决方案
-	
+- 鉴权
+- 拍视频
+- 上传视频
 
 ##安装要求
 - Cordova Version >=3.5
@@ -24,14 +25,26 @@
 				
 
 ##使用方式   
-
-1. 视频录制              								
+1. 鉴权              								
 ```Javascript
- QuPaiCloud.recordVideo();
+        QuPaiCloud.initAuth(function () {
+            //鉴权成功这里可以调用视频录制的方法
+        }, function (msg) {
+            alert(msg);
+        },{
+            uid: 'xxx'   //xxx代表上传到趣拍云上存储的相对路径  我是已uid（用户id）作为作为上传的目录 方便管理。 
+        });
 					
 ```	
 
-2. 上传视频              								
+
+2. 视频录制              								
+```Javascript
+ QuPaiCloud.recordVideo();  
+					
+```	
+
+3. 上传视频              								
 ```Javascript
  QuPaiCloud.upLoadVideo(function(param){
                         Tux.Global.serverVideoPath = param.serverVideoPath; //服务端视频地址
@@ -43,10 +56,49 @@
                         alert(msg);
                     },{
                         localVideoPath: Tux.Global.localVideoPath,
-                        localCoverPath: Tux.Global.localCoverPath
+                        localCoverPath: Tux.Global.localCoverPath，
+						 uid: 'xxx' 
                     });
 					
 ```	
 			     
+### Android Quirks
+需要在android 的MainActivity里面重写 onActivityResult方法
+```Javascript
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == 10001){
+            if (resultCode == RESULT_OK) {
+                QuPaiCloud q = new QuPaiCloud();
+                RecordResult result = new RecordResult(data);
+                //得到视频地址，和缩略图地址的数组，返回十张缩略图
+                q.localVideoPath = result.getPath();
+                q.localCoverPath = result.getThumbnail()[0];
+                result.getDuration();
+                Log.e(TAG, "视频路径:" + q.localVideoPath + "图片路径:" + q.localCoverPath);
+
+                appView.loadUrl("javascript:Tux.Global.getLocalVideoInfo('"+q.localVideoPath+"','"+q.localCoverPath+"');");
+                //q.getLocalVideoInfo(result.getPath(),result.getThumbnail()[0]);
+                //q.startUpload(getApplicationContext(),m_pDialog);
+                /**Restart ADB integration and try again
+
+                 * 清除草稿,草稿文件将会删除。所以在这之前我们执行拷贝move操作。
+                 * 上面的拷贝操作请自行实现，第一版本的copyVideoFile接口不再使用
+                 */
+//            QupaiService qupaiService = QupaiManager
+//                    .getQupaiService(MainActivity.this);
+//            qupaiService.deleteDraft(getApplicationContext(),data);
+
+            } else {
+                if (resultCode == RESULT_CANCELED) {
+                    //  Toast.makeText(cordova.getActivity(), "RESULT_CANCELED", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+    }
+
+```
 
