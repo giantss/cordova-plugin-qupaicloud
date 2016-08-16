@@ -21,23 +21,31 @@ NSString *INITAUTH_SUCCESS = @"鉴权成功";
  */
 - (void)initAuth:(CDVInvokedUrlCommand *)command
 {
-    [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:@"space" success:^(NSString *accessToken){
-        [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
-        
-        _accessToken = accessToken;
-        
-        NSLog(@"auth  success accessToken %@",_accessToken);
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-        
-    } failure:^(NSError *error) {
-        
-        NSLog(@"auth  failure %@",error);
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
+	    NSDictionary* param = [command argumentAtIndex:0];
+    if(param){
         
-    }];
+			_uid = [param objectForKey:@"uid"];
+				[[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:_uid success:^(NSString *accessToken){
+			[[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
+			
+			_accessToken = accessToken;
+			
+			NSLog(@"auth  success accessToken %@",_accessToken);
+			CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+			
+			} failure:^(NSError *error) {
+			
+			NSLog(@"auth  failure %@",error);
+			CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+
+			
+		}];
+	}
+	
+
 
 }
 

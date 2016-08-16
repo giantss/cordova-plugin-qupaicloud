@@ -49,7 +49,8 @@
 	 <source-file src="src/ios/libQuPaiCloudSDK/UIImage+ImageEffects.m"/>
 	 
 	 <resource-file src="src/ios/libQuPaiCloudSDK/QPSDK.bundle" />
-	 <resource-file src="src/ios/libQuPaiCloudSDK/QPSDK.framework" />
+
+	 <framework   src="src/ios/libQuPaiCloudSDK/QPSDK.framework" custom="true" />
 
 
   </platform>

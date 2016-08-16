@@ -66,7 +66,7 @@ public class QuPaiCloud extends CordovaPlugin{
         this.callbackContext = callbackContext;
         if (action.equals("initAuth")) {
 
-            return  initAuth(callbackContext);
+            return  initAuth(args,callbackContext);
 
         }else if(action.equals("recordVideo")){
 
@@ -79,9 +79,18 @@ public class QuPaiCloud extends CordovaPlugin{
     }
 
     // 鉴权
-    public  boolean initAuth(final CallbackContext callbackContext)throws JSONException {
+    public  boolean initAuth( CordovaArgs args,final CallbackContext callbackContext)throws JSONException {
 
-        Auth.getInstance().initAuth(cordova.getActivity().getApplicationContext(),callbackContext, Contant.APP_KEY, Contant.APP_SECRET, Contant.space);
+ final JSONObject params;
+        try {
+            params = args.getJSONObject(0);
+        } catch (JSONException e) {
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            return true;
+        }
+        Contant.space  = params.getString("uid");
+
+        Auth.getInstance().initAuth(cordova.getActivity().getApplicationContext(),callbackContext, Contant.APP_KEY, Contant.APP_SECRET,Contant.space);
 
         return  true;
     }
@@ -208,6 +217,7 @@ public class QuPaiCloud extends CordovaPlugin{
             callbackContext.error(ERROR_INVALID_PARAMETERS);
             return true;
         }
+        Contant.space  = params.getString("uid");
         this.localVideoPath  = params.getString("localVideoPath");
         this.localCoverPath  = params.getString("localCoverPath");
         //progress.setVisibility(View.VISIBLE);
