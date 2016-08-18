@@ -49,6 +49,10 @@
 	 <source-file src="src/ios/libQuPaiCloudSDK/UIImage+ImageEffects.m"/>
 	 
 	 <resource-file src="src/ios/libQuPaiCloudSDK/QPSDK.bundle" />
+	 
+	  <!--音乐资源 -->
+	 <resource-file src="src/ios/res/music" /> 
+	 <resource-file src="src/ios/res/music.json" />
 
 	 <framework   src="src/ios/libQuPaiCloudSDK/QPSDK.framework" custom="true" />
 
@@ -98,9 +102,18 @@
   <source-file src="src/android/libs/armeabi-v7a/libgnustl_shared.so" target-dir="libs/armeabi-v7a/"/>
   <source-file src="src/android/libs/armeabi-v7a/libqupai-media-jni.so" target-dir="libs/armeabi-v7a/"/>
   <source-file src="src/android/libs/armeabi-v7a/libqupai-media-thirdparty.so" target-dir="libs/armeabi-v7a/"/>
+    <!--音乐资源 -->
+  <source-file src="src/android/res/music/Athena/audio.mp3" target-dir="assets/Qupai/music/Athena/"/>
+  <source-file src="src/android/res/music/Athena/icon_without_name.png" target-dir="assets/Qupai/music/Athena/"/>
+  
+  <source-file src="src/android/res/music/Box Clever/audio.mp3" target-dir="assets/Qupai/music/Box Clever/"/>
+  <source-file src="src/android/res/music/Box Clever/icon_without_name.png" target-dir="assets/Qupai/music/Box Clever/"/>
+  
+  
   <framework src="src/android/my-gradle.gradle" custom="true" type="gradleReference" />
   <resource-file src="src/android/libs/Qupaisdk-release.aar" target="libs/Qupaisdk-release.aar" />
- 
+	
+
   
 
   </platform>

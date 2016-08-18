@@ -125,11 +125,9 @@ public class QuPaiCloud extends CordovaPlugin{
         //水印存储的目录
         waterMarkPath = Contant.WATER_MARK_PATH;
 
-        //添加音乐功能
-        //qupaiService.addMusic(0, "0", "assets://Qupai/music/0");
-        //qupaiService.addMusic(1, "1", "assets://Qupai/music/1");
-        //qupaiService.addMusic(2, "2", "assets://Qupai/music/2");
-        //qupaiService.addMusic(3, "3", "assets://Qupai/music/3");
+               //添加音乐功能
+        qupaiService.addMusic(0, "Athena", "assets://Qupai/music/Athena");
+        qupaiService.addMusic(1, "Box Clever", "assets://Qupai/music/Box Clever");
 		
         UISettings _UISettings = new UISettings() {
 

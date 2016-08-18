@@ -69,6 +69,31 @@ NSString *INITAUTH_SUCCESS = @"鉴权成功";
     _domain = @"http://chinabike.s.qupai.me";
 
 }
+/**
+ *  添加音乐  QupaiSDKDelegate
+ */
+- (NSArray *)qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk
+
+{
+    NSString *baseDir = [[NSBundle mainBundle] bundlePath];
+    NSString *configPath = [[NSBundle mainBundle] pathForResource:@"music"ofType:@"json"];
+    NSData *configData = [NSData dataWithContentsOfFile:configPath];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:configData options:NSJSONReadingAllowFragments error:nil];
+    NSArray *items = dic[@"music"];
+    
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSDictionary *item in items) {
+        NSString *path = [baseDir stringByAppendingPathComponent:item[@"resourceUrl"]];
+        QPEffectMusic *effect = [[QPEffectMusic alloc] init];
+        effect.name = item[@"name"];
+        effect.eid = [item[@"id"] intValue];
+        effect.musicName = [path stringByAppendingPathComponent:@"audio.mp3"];
+        effect.icon = [path stringByAppendingPathComponent:@"icon.png"];
+        [array addObject:effect];
+           }
+ 
+    return array;
+}
 
 /**
  *  视频录制
@@ -94,6 +119,9 @@ NSString *INITAUTH_SUCCESS = @"鉴权成功";
     [sdk setWatermarkImage:_enableWatermark ? [UIImage imageNamed:@"watermask"] : nil];
     [sdk setWatermarkPosition:QupaiSDKWatermarkPositionTopRight];
     [sdk setCameraPosition:_cameraPosition];
+	
+	[self qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk];
+    [sdk updateMoreMusic];
     
     /* 基本设置 */
     UIViewController *recordController = [sdk createRecordViewControllerWithMinDuration:_minDuration
