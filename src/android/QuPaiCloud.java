@@ -148,7 +148,7 @@ public class QuPaiCloud extends CordovaPlugin{
 
             @Override
             public boolean hasSkinBeautifer() {
-                return true;
+                return false;
             }
         };
 
