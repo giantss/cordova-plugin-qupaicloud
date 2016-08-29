@@ -58,7 +58,7 @@ NSString *INITAUTH_SUCCESS = @"鉴权成功";
     
     _enableImport = true;
     _enableBeauty = false;
-    _enableMoreMusic = true;
+    _enableMoreMusic = false;
     _enableVideoEffect = true;
     _enableWatermark = true;
     _thumbnailCompressionQuality = 1;

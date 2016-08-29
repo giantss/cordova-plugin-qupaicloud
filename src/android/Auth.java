@@ -36,7 +36,7 @@ public class Auth {
             @Override
             public void onAuthError(int errorCode, String message) {
                 Log.e(AUTHTAG, "ErrorCode" + errorCode + "message" + message);
-                callbackContext.error("鉴权失败");
+                callbackContext.error("鉴权失败:"+errorCode);
             }
 
             @Override
