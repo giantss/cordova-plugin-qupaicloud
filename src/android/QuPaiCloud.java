@@ -21,6 +21,7 @@ import com.duanqu.qupai.upload.UploadService;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.LOG;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,6 +58,78 @@ public class QuPaiCloud extends CordovaPlugin{
         m_pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         m_pDialog.setIndeterminate(false);
         m_pDialog.setCancelable(false);
+
+        QupaiService qupaiService = QupaiManager
+                .getQupaiService(cordova.getActivity().getApplicationContext());
+
+        if (qupaiService == null) {
+            Toast.makeText(cordova.getActivity(), "插件没有初始化，无法获取 QupaiService",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        //视频时长
+        mDurationLimit = Contant.DEFAULT_DURATION_LIMIT;
+        //默认最小时长
+        mMinDurationLimit = Contant.DEFAULT_MIN_DURATION_LIMIT;
+        //视频码率
+        mVideoBitrate = Contant.DEFAULT_BITRATE;
+        //水印存储的目录
+        waterMarkPath = Contant.WATER_MARK_PATH;
+
+
+        UISettings _UISettings = new UISettings() {
+            @Override
+            public boolean hasEditor() {
+                return true;
+            }
+            @Override
+            public boolean hasImporter() {
+                return true;
+            }
+            @Override
+            public boolean hasGuide() {
+                return true;
+            }
+            @Override
+            public boolean hasSkinBeautifer() {
+                return false;
+            }
+        };
+
+        MovieExportOptions movie_options = new MovieExportOptions.Builder()
+                .setVideoBitrate(mVideoBitrate)
+                .configureMuxer("movflags", "+faststart")
+                .build();
+
+        ProjectOptions projectOptions = new ProjectOptions.Builder()
+                .setVideoSize(512, 512)
+                .setVideoFrameRate(30)
+                .setDurationRange(mMinDurationLimit, mDurationLimit)
+                .get();
+
+        ThumbnailExportOptions thumbnailExportOptions = new ThumbnailExportOptions.Builder()
+                .setCount(1).get();
+
+        VideoSessionCreateInfo info = new VideoSessionCreateInfo.Builder()
+                .setWaterMarkPath(waterMarkPath)
+                .setWaterMarkPosition(mWaterMark)
+                .setCameraFacing(0)
+                .setBeautyProgress(beautySkinProgress)
+                .setBeautySkinOn(true)
+                .setMovieExportOptions(movie_options)
+                .setThumbnailExportOptions(thumbnailExportOptions)
+                .build();
+
+        //初始化，建议在application里面做初始化，这里做是为了方便开发者认识参数的意义
+        qupaiService.initRecord(info, projectOptions, _UISettings);
+        //是否需要更多音乐页面--如果不需要更多音乐可以干掉
+        //Intent moreMusic = new Intent();
+//                if (st_more_music.isChecked()) {
+//                    moreMusic.setClass(MainActivity.this, MoreMusicActivity.class);
+//                } else {
+//                    moreMusic = null;
+//                }
+        //qupaiService.hasMroeMusic(moreMusic);
     }
 
     @Override
@@ -97,96 +170,8 @@ public class QuPaiCloud extends CordovaPlugin{
     // 录制
     public void recordVideo(final CallbackContext callbackContext)throws JSONException {
 
-
         QupaiService qupaiService = QupaiManager
                 .getQupaiService(cordova.getActivity().getApplicationContext());
-
-        if (qupaiService == null) {
-            Toast.makeText(cordova.getActivity(), "插件没有初始化，无法获取 QupaiService",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        //视频时长
-
-        mDurationLimit = Contant.DEFAULT_DURATION_LIMIT;
-
-
-        //默认最小时长
-
-        mMinDurationLimit = Contant.DEFAULT_MIN_DURATION_LIMIT;
-
-
-        //视频码率
-
-        mVideoBitrate = Contant.DEFAULT_BITRATE;
-
-
-        //水印存储的目录
-        waterMarkPath = Contant.WATER_MARK_PATH;
-
-               //添加音乐功能
-        qupaiService.addMusic(0, "Athena", "assets://Qupai/music/Athena");
-        qupaiService.addMusic(1, "Box Clever", "assets://Qupai/music/Box Clever");
-		
-        UISettings _UISettings = new UISettings() {
-
-            @Override
-            public boolean hasEditor() {
-                return true;
-            }
-
-            @Override
-            public boolean hasImporter() {
-                return true;
-            }
-
-            @Override
-            public boolean hasGuide() {
-                return true;
-            }
-
-            @Override
-            public boolean hasSkinBeautifer() {
-                return false;
-            }
-        };
-
-        MovieExportOptions movie_options = new MovieExportOptions.Builder()
-                .setVideoBitrate(mVideoBitrate)
-                .configureMuxer("movflags", "+faststart")
-                .build();
-
-        ProjectOptions projectOptions = new ProjectOptions.Builder()
-                .setVideoSize(480, 480)
-                .setVideoFrameRate(30)
-                .setDurationRange(mMinDurationLimit, mDurationLimit)
-                .get();
-
-        ThumbnailExportOptions thumbnailExportOptions = new ThumbnailExportOptions.Builder()
-                .setCount(1).get();
-
-        VideoSessionCreateInfo info = new VideoSessionCreateInfo.Builder()
-                .setWaterMarkPath(waterMarkPath)
-                .setWaterMarkPosition(mWaterMark)
-                .setCameraFacing(0)
-                .setBeautyProgress(beautySkinProgress)
-                .setBeautySkinOn(true)
-                .setMovieExportOptions(movie_options)
-                .setThumbnailExportOptions(thumbnailExportOptions)
-                .build();
-
-        //初始化，建议在application里面做初始化，这里做是为了方便开发者认识参数的意义
-        qupaiService.initRecord(info, projectOptions, _UISettings);
-
-        //是否需要更多音乐页面--如果不需要更多音乐可以干掉
-        //Intent moreMusic = new Intent();
-//                if (st_more_music.isChecked()) {
-//                    moreMusic.setClass(MainActivity.this, MoreMusicActivity.class);
-//                } else {
-//                    moreMusic = null;
-//                }
-        //qupaiService.hasMroeMusic(moreMusic);
 
         //引导，只显示一次，这里用SharedPreferences记录
         final AppGlobalSetting sp = new AppGlobalSetting(cordova.getActivity().getApplicationContext());
@@ -202,6 +187,12 @@ public class QuPaiCloud extends CordovaPlugin{
                 AppConfig.PREF_VIDEO_EXIST_USER, false);
 
             //getLocalVideoInfo(localVideoPath, localCoverPath, callbackContext);
+        LOG.e("isGuideShow",String.valueOf(isGuideShow));
+        if(isGuideShow){
+            //添加音乐功能
+            qupaiService.addMusic(0, "Athena", "assets://Qupai/music/Athena");
+            qupaiService.addMusic(1, "Box Clever", "assets://Qupai/music/Box Clever");
+        }
 
             Intent intent = new Intent();
             cordova.startActivityForResult((CordovaPlugin)this, intent, RequestCode.RECORDE_SHOW);

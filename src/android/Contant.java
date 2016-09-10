@@ -8,7 +8,7 @@ public class Contant {
     /**
      * 默认时长
      */
-    public static  float DEFAULT_DURATION_LIMIT = 8;
+    public static  float DEFAULT_DURATION_LIMIT = 45;
     /**
      * 默认最小时长
      */
@@ -16,7 +16,7 @@ public class Contant {
     /**
      * 默认码率
      */
-    public static  int DEFAULT_BITRATE =2000 * 1000;
+    public static  int DEFAULT_BITRATE =1000 * 1000;
     /**
      * 默认Video保存路径，请开发者自行指定
      */

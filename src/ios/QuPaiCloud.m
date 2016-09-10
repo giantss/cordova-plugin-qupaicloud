@@ -64,8 +64,8 @@ NSString *INITAUTH_SUCCESS = @"鉴权成功";
     _thumbnailCompressionQuality = 1;
     _cameraPosition = QupaiSDKCameraPositionBack;
     _minDuration = 2;
-    _maxDuration = 8;
-    _bitRate = 2000*1000;
+    _maxDuration = 45;
+    _bitRate = 1000*1000;
     _domain = @"http://chinabike.s.qupai.me";
 
 }
