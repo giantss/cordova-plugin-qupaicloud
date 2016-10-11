@@ -53,7 +53,7 @@
 	  <!--音乐资源 -->
 	 <resource-file src="src/ios/res/music" /> 
 	 <resource-file src="src/ios/res/music.json" />
-
+		 <!--sdk 1.2.2 -->
 	 <framework   src="src/ios/libQuPaiCloudSDK/QPSDK.framework" custom="true" />
 
 

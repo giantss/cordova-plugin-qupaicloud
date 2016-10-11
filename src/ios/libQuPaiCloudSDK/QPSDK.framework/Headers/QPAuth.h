@@ -1,9 +1,9 @@
 //
 //  QPAuth.h
-//  ALBBQuPaiPlugin
+//  QPLive
 //
 //  Created by zhangwx on 16/4/13.
-//  Copyright © 2016年 Alipay. All rights reserved.
+//  Copyright © 2016年 Alibaba Video Cloud. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
