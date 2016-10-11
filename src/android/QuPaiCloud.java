@@ -102,7 +102,7 @@ public class QuPaiCloud extends CordovaPlugin{
                 .build();
 
         ProjectOptions projectOptions = new ProjectOptions.Builder()
-                .setVideoSize(512, 512)
+                .setVideoSize(480, 480)
                 .setVideoFrameRate(30)
                 .setDurationRange(mMinDurationLimit, mDurationLimit)
                 .get();
